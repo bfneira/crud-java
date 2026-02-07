@@ -1,0 +1,62 @@
+<configuration>
+    <property name="LOG_PATH" value="logs" />
+
+    <!-- Appender consola -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{dd-MM-yyyy HH:mm:ss.SSS} %highlight(%-5level) [%thread] %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Appender archivo -->
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_PATH}/app.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_PATH}/app.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>7</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{dd-MM-yyyy HH:mm:ss.SSS} %-5level [%thread] %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="org.springframework.web.servlet.resource" level="WARN"/>
+	<logger name="org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController" level="WARN"/>
+	<logger name="org.springframework.web.servlet.mvc.method.annotation.HttpEntityMethodProcessor" level="WARN"/>
+
+	<logger name="org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor"
+			level="WARN"
+			additivity="false" />
+
+	<logger name="org.springframework.web.servlet.DispatcherServlet" level="WARN" additivity="false" />
+
+
+
+    <!-- Servicios -->
+    <logger name="org.example.crudjava.service.impl" level="INFO" additivity="false">
+        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="FILE" />
+    </logger>
+
+    <!-- Controladores -->
+    <logger name="org.example.crudjava.controller" level="INFO" additivity="false">
+        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="FILE" />
+    </logger>
+
+    <!-- Repositorios -->
+    <logger name="org.example.crudjava.repository" level="INFO" additivity="false">
+        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="FILE" />
+    </logger>
+
+    <!-- Root solo para logs de arranque -->
+    <root level="INFO">
+        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="FILE" />
+    </root>
+
+    <!-- Silenciar ruido de otras bibliotecas -->
+    <logger name="org.hibernate" level="WARN" />
+    <logger name="com.zaxxer.hikari" level="WARN" />
+</configuration>
