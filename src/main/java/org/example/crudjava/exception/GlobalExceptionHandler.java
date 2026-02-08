@@ -1,11 +1,13 @@
 package org.example.crudjava.exception;
 
+import io.swagger.v3.oas.annotations.Hidden;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
 @RestControllerAdvice
+@Hidden
 public class GlobalExceptionHandler {
 
     private static final Logger logger =
